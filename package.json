@@ -1,0 +1,25 @@
+{
+  "name": "myslack",
+  "version": "1.0.0",
+  "description": "project2",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kicknpick/mySlack.git"
+  },
+  "author": "curious george",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kicknpick/mySlack/issues"
+  },
+  "homepage": "https://github.com/kicknpick/mySlack#readme",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "mysql": "^2.13.0",
+    "sequelize": "^3.30.2"
+  }
+}
