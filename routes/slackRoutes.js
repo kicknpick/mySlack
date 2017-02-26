@@ -8,6 +8,7 @@ module.exports = function(app) {
 
   // GET route for getting all of the todos
   app.get("/getAllSlacks", function(req, res) {
+    console.log(res);
     // findAll returns all entries for a table when used with no options
     db.newSlack.findAll().then(function(dbSlack) {
       console.log(dbSlack);
@@ -31,7 +32,9 @@ module.exports = function(app) {
   //   });
   // });
 
-  bot
 
 
-};
+
+});
+
+}
