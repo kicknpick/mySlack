@@ -9,3 +9,5 @@ var bot = new SlackBot({
 bot.on('start', function() {
 	
 });
+
+module.exports = bot;
