@@ -1,7 +1,7 @@
 // Requiring our Todo model
 var db = require("../models");
 
-var bot = require("./slackbot.js")
+// var bot = require("./slackbot.js")
 // Routes
 // =============================================================
 module.exports = function(app) {
