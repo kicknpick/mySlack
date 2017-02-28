@@ -21,8 +21,26 @@ app.use(express.static("./public"));
 
 // Routes =============================================================
 
-require("routes/slackRoutes.js")(app);
-require("routes/userRoutes.js")(app);
+require("./routes/slackRoutes.js")(app);
+require("./routes/userRoutes.js")(app);
+// require("./routes/slackbot.js")(app);
+
+
+var Slackbot = require('slackbots');
+
+// create a bot 
+var bot = new Slackbot({
+	token: process.env.slacktoken,
+    name: 'mytest'
+});
+
+bot.on('message', function(data) {
+	console.log(data.text);
+	if (data.text === "save") {
+		console.log("it worked!!!!");
+	}
+});
+
 
 
 // Syncing our sequelize models and then starting our express app
