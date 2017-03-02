@@ -31,7 +31,7 @@ var Slackbot = require('slackbots');
 // create a bot 
 var bot = new Slackbot({
     // token: process.env.slacktoken,
-    token: 'xoxb-146588198321-AjAKw6BhR2Yhjvl6UEFzjn5A',
+    token: 'xoxb-146588198321-QpazpfNIzat8zN20R9TLnJ8L',
     name: 'mytest'
 });
 
@@ -42,7 +42,7 @@ bot.on('message', function(data) {
         //if the message is a file, do something
         if (data.file) {
             console.log("This is file shared");
-            console.log(data);
+            console.log(data.file.permalink_public);
             //processing the filen to send to mySQL
         }
 
@@ -51,15 +51,18 @@ bot.on('message', function(data) {
         	var test = data.text.indexOf("#save");
 
         	if (test > -1) {
-        		console.log("we are the best");
-        	}
-
-            console.log("This is text");
-            console.log(data.text);
-            // console.log(data.message.user);
-            // console.log(data.message.text);
+        		console.log("data.text working");
+        		db.User.findOrCreate({
+        			where: {slack_id:data.user}}).spread(function(user) {
+        			db.Slack.create({
+        			//slack_id: data.user,
+				    slack: data.text,
+				    UserId: user.id
+        		});	
+        			});
+        		
+        	};
         }
-
 
     };
     return
@@ -68,7 +71,7 @@ bot.on('message', function(data) {
 
 
 // Syncing our sequelize models and then starting our express app
-db.sequelize.sync({ force: false }).then(function() {
+db.sequelize.sync({ force: true }).then(function() {
     app.listen(PORT, function() {
         console.log("App listening on PORT " + PORT);
     });

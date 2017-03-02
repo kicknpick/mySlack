@@ -1,8 +1,19 @@
 module.exports = function(sequelize, DataTypes) {
-  var newSlack = sequelize.define("mySlacks", {
-    slack_id: DataTypes.INTEGER,
-    slack: DataTypes.TEXT,
-    user_id: DataTypes.INTEGER
-  });
-  return newSlack;
+    var Slack = sequelize.define("Slack", {
+        //slack_id: { type: DataTypes.INTEGER, allowNull: false },
+        slack: DataTypes.TEXT,
+        file: DataTypes.STRING
+    }, {
+        classMethods: {
+            associate: function(models) {
+                Slack.belongsTo(models.User, {
+                    foreignKey: {
+                        allowNull: false
+                    }
+                });
+            }
+        }
+
+    });
+    return Slack;
 };
