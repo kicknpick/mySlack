@@ -48,8 +48,6 @@ var bot = new Slackbot({
     // token: process.env.slacktoken,
     token: keys.token,
     name: keys.name
-    // token: 'xoxb-146588198321-94S1JjetyEdZa3z6UJlX6ovm',
-    // name: 'mytest'
 });
 
 bot.on('message', function(data) {

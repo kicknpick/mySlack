@@ -37,6 +37,11 @@ body {
 	margin:0 auto;
 	width:80%;
 }
+
+.displayMySql{
+	background:#a7ffeb;
+	font-size: 100%;
+}
 /* start header */
 .header_bg{
 	background: #ffffff;
