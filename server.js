@@ -21,26 +21,34 @@ app.use(express.static("./public"));
 
 
 // handlebars 
-// var exphbs = require("express-handlebars");
+var exphbs = require("express-handlebars");
 
-// app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-// app.set("view engine", "handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 
 
 // Routes =============================================================
 
-// require("./routes/slackRoutes.js")(app);
+// var routerSlack = require("./routes/slackRoutes.js");
+// app.use("/", routerSlack);
+
+require("./routes/slackRoutes.js")(app);
+
 // require("./routes/userRoutes.js")(app);
-require("./routes/htmlRoutes.js")(app);
+// require("./routes/htmlRoutes.js")(app);
 
 
 var Slackbot = require('slackbots');
-
+var keys = require('./keys.js');
+console.log(keys.token);
+console.log(keys.name);
 // create a bot 
 var bot = new Slackbot({
     // token: process.env.slacktoken,
-    // token: 'xoxb-146588198321-4C8i3zuavbrbK0NcBurGOdYH',
+    token: keys.token,
+    name: keys.name
+    // token: 'xoxb-146588198321-94S1JjetyEdZa3z6UJlX6ovm',
     // name: 'mytest'
 });
 
@@ -54,6 +62,7 @@ bot.on('message', function(data) {
             console.log(data.file.permalink_public);
             //processing the filen to send to mySQL
             var test = data.text.indexOf("#save");
+
 
         	if (test > -1) {
         		console.log("data.text working");

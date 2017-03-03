@@ -1,40 +1,55 @@
-// Requiring our Todo model
-var db = require("../models");
+var express = require("express");
 
-// var bot = require("./slackbot.js")
+// var routerSlack = express.Router();
+
+// // Requiring our Slacks model
+// var db = require("../models");
+// console.log(db);
+
+
+// routerSlack.get("/", function(req, res) {
+//  db.slack.findAll({}).then(function(dbSlack) {
+
+//    //we use res.render instead of res.send because we are using handlebars and the
+//    //index.hadlerbars file is dyamically popullated
+
+//    res.render("index", {slack: dbSlack});
+//  }).catch(function(error){
+//    console.log(error);
+//  });
+// });
+
+
+// //Export routes for server.js to use.
+
+// module.exports = routerSlack;
+
+
+// Dependencies
+// =============================================================
+
+
 // Routes
 // =============================================================
 module.exports = function(app) {
 
-  // GET route for getting all of the todos
-  app.get("/getAllSlacks", function(req, res) {
-    console.log(res);
-    // findAll returns all entries for a table when used with no options
-    db.newSlack.findAll().then(function(dbSlack) {
-      console.log(dbSlack);
-      // We have access to the todos as an argument inside of the callback function
-      res.json(dbSlack);
+
+
+    // Requiring our Slacks model
+    var db = require("../models");
+
+    app.get("/", function(req, res) {
+        db.Slack.findAll({
+
+        }).then(function(dbSlack) {
+
+            //we use res.render instead of res.send because we are using handlebars and the
+            //index.hadlerbars file is dyamically popullated
+
+            res.render("index", { slack: dbSlack });
+        }).catch(function(error) {
+            console.log(error);
+        });
     });
-  });
 
-  // POST route for saving a new todo
-  app.post("/postSlack", function(req, res) {
-  //   console.log(req.body);
-  //   // create takes an argument of an object describing the item we want to
-  //   // insert into our table. In this case we just we pass in an object with a text
-  //   // and complete property (req.body)
-  //   db.newSlack.create({
-  //     text: req.body.text,
-  //     complete: req.body.complete
-  //   }).then(function(dbTodo) {
-  //     // We have access to the new todo as an argument inside of the callback function
-  //     res.json(dbTodo);
-  //   });
-  // });
-
-
-
-
-});
-
-}
+};
