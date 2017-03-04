@@ -7,16 +7,16 @@ var bodyParser = require("body-parser");
 var app = express();
 var PORT = process.env.PORT || 8080;
 
-if (process.env.JAWSDDB_URL) {
-    connection = mysql.createConnection(process.env.JAWSDDB_URL);
-}else {
-    connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'password',
-        database: 'mySlacks'
-    });
-};
+// if (process.env.JAWSDDB_URL) {
+//     connection = mysql.createConnection(process.env.JAWSDDB_URL);
+// }else {
+//     connection = mysql.createConnection({
+//         host: 'localhost',
+//         user: 'root',
+//         password: 'password',
+//         database: 'mySlacks'
+//     });
+// };
 
 
 // Requiring our models for syncing
