@@ -41,7 +41,7 @@ require("./routes/slackRoutes.js")(app);
 
 
 var Slackbot = require('slackbots');
-// var keys = require('./keys.js');
+var keys = require('./keys.js');
 // console.log(keys.token);
 // console.log(keys.name);
 // create a bot 
