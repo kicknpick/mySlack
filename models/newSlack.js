@@ -2,7 +2,8 @@ module.exports = function(sequelize, DataTypes) {
     var Slack = sequelize.define("Slack", {
         //slack_id: { type: DataTypes.INTEGER, allowNull: false },
         slack: DataTypes.TEXT,
-        file: DataTypes.STRING
+        file: DataTypes.STRING,
+        category: DataTypes.STRING
     }, {
         classMethods: {
             associate: function(models) {

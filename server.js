@@ -7,17 +7,6 @@ var bodyParser = require("body-parser");
 var app = express();
 var PORT = process.env.PORT || 8080;
 
-// if (process.env.JAWSDDB_URL) {
-//     connection = mysql.createConnection(process.env.JAWSDDB_URL);
-// }else {
-//     connection = mysql.createConnection({
-//         host: 'localhost',
-//         user: 'root',
-//         password: 'password',
-//         database: 'mySlacks'
-//     });
-// };
-
 
 // Requiring our models for syncing
 var db = require("./models");
@@ -59,50 +48,59 @@ var Slackbot = require('slackbots');
 var bot = new Slackbot({
     token: process.env.SLACK_TOKEN,
     name: process.env.SLACK_NAME
+ 
 });
 
 bot.on('message', function(data) {
     if (data.type === "message") {
-
-
+        console.log(data);
         //if the message is a file, do something
         if (data.file) {
             console.log("This is file shared");
-            console.log(data.file.permalink_public);
+            console.log(data);
+            console.log(data.file.permalink);
             //processing the filen to send to mySQL
             var test = data.text.indexOf("#save");
 
 
-        	if (test > -1) {
-        		console.log("data.text working");
-        		db.User.findOrCreate({
-        			where: {slack_id:data.file.user}}).spread(function(user) {
-        			db.Slack.create({
-        			//slack_id: data.user,
-				    slack: data.file.permalink_public,
-				    UserId: user.id
-        		});	
-        			});
-        		
-        	};
+            if (test > -1) {
+                console.log("data.text working1----------------------------------");
+                console.log(data);
+                db.User.findOrCreate({
+                    where: { slack_id: data.file.user }
+                }).spread(function(user) {
+                    console.log(user);
+                    db.Slack.create({
+                        //slack_id: data.user,
+                        // slack: data.file.permalink_public,
+                        slack: data.file.permalink,
+                        UserId: user.id
+                    });
+                });
+
+            };
         }
 
         if (data.text && !data.file) {
 
-        	var test = data.text.indexOf("#save");
+            var test = data.text.indexOf("#save");
 
-        	if (test > -1) {
-        		console.log("data.text working");
-        		db.User.findOrCreate({
-        			where: {slack_id:data.user}}).spread(function(user) {
-        			db.Slack.create({
-        			//slack_id: data.user,
-				    slack: data.text,
-				    UserId: user.id
-        		});	
-        			});
-        		
-        	};
+            if (test > -1) {
+                console.log("data.text working2--------------------------------");
+                console.log(data.attachments[0].title_link);
+                db.User.findOrCreate({
+                    where: { slack_id: data.user }
+                }).spread(function(user) {
+                    console.log(user);
+                    db.Slack.create({
+
+                        slack: data.text,
+                        // slack: data.attachments.title_link,
+                        UserId: user.id
+                    });
+                });
+
+            };
         }
 
     };
