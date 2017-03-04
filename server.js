@@ -7,6 +7,18 @@ var bodyParser = require("body-parser");
 var app = express();
 var PORT = process.env.PORT || 8080;
 
+if (process.env.JAWSDDB_URL) {
+    connection = mysql.createConnection(process.env.JAWSDDB_URL);
+}else {
+    connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'password',
+        database: 'mySlacks'
+    });
+};
+
+
 // Requiring our models for syncing
 var db = require("./models");
 
@@ -40,14 +52,13 @@ require("./routes/slackRoutes.js")(app);
 
 
 var Slackbot = require('slackbots');
-var keys = require('./keys.js');
-console.log(keys.token);
-console.log(keys.name);
+// var keys = require('./keys.js');
+// // console.log(keys.token);
+// console.log(keys.name);
 // create a bot 
 var bot = new Slackbot({
-    // token: process.env.slacktoken,
-    token: keys.token,
-    name: keys.name
+    token: process.env.SLACK_TOKEN,
+    name: process.env.SLACK_NAME
 });
 
 bot.on('message', function(data) {
